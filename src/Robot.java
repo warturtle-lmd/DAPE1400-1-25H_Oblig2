@@ -11,6 +11,27 @@ public class Robot {
         this.botType = botType;
     }
 
+    public int getBatterylevel(){
+        return batterylevel;
+    }
+
+    public int getDistanceToPark(){
+        return distanceToPark;
+    }
+
+    public void setBatterylevel(int batterylevel){
+        if (batterylevel < 0 || batterylevel >100){
+            return;
+        }
+        this.batterylevel = batterylevel;
+    }
+    public void setDistanceToPark(int distanceToPark){
+        if (distanceToPark <0){
+            return;
+        }
+        this.distanceToPark = distanceToPark;
+    }
+
     public String reportStatus() {
 
         return "Dette er bot " + name + " av type " + botType + ". Denne enheten har " + batterylevel + " igjen og bor " + distanceToPark + " meter fra parken.";}
@@ -34,8 +55,24 @@ public class Robot {
             System.out.println(name + " hadde for lavt batterinivå for å gå til parken.");
             return false;
         }
-        System.out.println( name + " kan gå til parken i dag! :)" );
+        int batteryUsed = distanceToPark/100;
+        setBatterylevel(batterylevel-batteryUsed);
+        System.out.println( name + " kan gå til parken i dag! :) Etter turen har du igjen " + batterylevel + "% strøm");
         return true;
+    }
+
+    public void chargingTime(int addBattery){
+        if (addBattery <0){
+            return;
+        }
+        if (batterylevel + addBattery >=100){
+            System.out.println(name + " er fulladet! :)");
+            this.batterylevel = 100;
+        }
+        else {
+            System.out.println("Nå lader " + name +" "+ addBattery + "%");
+            this.batterylevel += addBattery;
+        }
     }
 
     public boolean canDanceAtClub(World world){
@@ -49,6 +86,10 @@ public class Robot {
         }
         if (world.getDay()%7 == 1){
             System.out.println("I dag er det mandag, så " + name + "kan ikke danse fordi klubben er stengt.");
+            return false;
+        }
+        if (world.getHour()>2 && world.getHour() < 18){
+            System.out.println("Klubben er åpen fra kl 18:00 - kl 02:00, den er stengt nå");
             return false;
         }
         System.out.println( name + " kan dra på danseklubben i dag! :)");
