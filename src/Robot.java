@@ -34,15 +34,21 @@ public class Robot {
 
     public String reportStatus() {
 
-        return "Dette er bot " + name + " av type " + botType + ". Denne enheten har " + batterylevel + " igjen og bor " + distanceToPark + " meter fra parken.";}
+        return "Dette er bot " + name + " av type " + botType + ". Denne enheten har " + batterylevel + "% battery og bor " + distanceToPark + " meter fra parken.";}
 
     public boolean canWalkToThePark(World world) {
 
         System.out.println(name + " sjekker om det er mulig å gå til parken...");
 
         if (world.getIsRaining()) {
-            // skriv ut hvorfor boten ikke kan gå i parken med System.out.println
+
             System.out.println("Denne dagen er det regn, derfor kan ikke " + name + " gå til parken.");
+            return false;
+        }
+
+        if (world.getIsSlippery()) {
+
+            System.out.println("I dag er det glatt, så " + name + " kan ikke gå til parken.");
             return false;
         }
 
@@ -81,7 +87,7 @@ public class Robot {
             return false;
         }
         if (batterylevel < 50){
-            System.out.println( name + "har" + batterylevel + "% strøm, det er for lavt til å danse.");
+            System.out.println( name + " har " + batterylevel + "% strøm, det er for lavt til å danse.");
             return false;
         }
         if (world.getDay()%7 == 1){
@@ -89,7 +95,7 @@ public class Robot {
             return false;
         }
         if (world.getHour()>2 && world.getHour() < 18){
-            System.out.println("Klubben er åpen fra kl 18:00 - kl 02:00, den er stengt nå");
+            System.out.println("Hei " + name + " klubben er åpen fra kl 18:00 - kl 02:00, den er stengt nå");
             return false;
         }
         System.out.println( name + " kan dra på danseklubben i dag! :)");

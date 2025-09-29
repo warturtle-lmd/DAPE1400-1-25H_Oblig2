@@ -1,8 +1,10 @@
 public class Main {
     public static void main(String[] args) {
-        World todaysWorld = new World(140, false,17,true);
+        World todaysWorld = new World(140, false,17,false);
         Robot roarRobot = new Robot("RoarRobot", 88, 9000, "B-Bot");
         Robot roxanneRobot = new Robot("RoxanneRobot", 20, 1000, "Toaster");
+        Robot lauraBot = new Robot("LauraBot", 75, 6000, "B-Bot");
+        Robot krisBot = new Robot("KrisBot", 80,5000,"Toaster");
 
         System.out.println(roarRobot.reportStatus());
         System.out.println(roxanneRobot.reportStatus());
@@ -13,6 +15,21 @@ public class Main {
         roxanneRobot.chargingTime(20);
         System.out.println(roxanneRobot.getBatterylevel());
         roxanneRobot.canWalkToThePark(todaysWorld);
+
+        System.out.println(lauraBot.reportStatus());
+        System.out.println(krisBot.reportStatus());
+        lauraBot.canWalkToThePark(todaysWorld);
+        krisBot.canWalkToThePark(todaysWorld);
+        System.out.println(lauraBot.getBatterylevel());
+        System.out.println(krisBot.getBatterylevel());
+        lauraBot.chargingTime(35);
+        krisBot.chargingTime(40);
+        System.out.println(lauraBot.getBatterylevel());
+        System.out.println(krisBot.getBatterylevel());
+
+        lauraBot.canDanceAtClub(todaysWorld);
+        krisBot.canDanceAtClub(todaysWorld);
+
 
 
         roarRobot.canDanceAtClub(todaysWorld);
